@@ -3,17 +3,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Terminal, ArrowRight, CornerDownLeft, Shield, HelpCircle } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
-interface CommandPaletteProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onRunDiagnostics: () => void;
-}
+const TEXT_ESC_TO_EXIT = 'ESC TO EXIT';
+const TEXT_EXECUTE = 'EXECUTE';
+const TEXT_NO_COMMANDS = 'NO COMMANDS MATCHED YOUR SEARCH';
+const TEXT_TRY_SEARCHING = 'Try searching for keywords like "/goto" or "/theme"';
+const TEXT_CONSOLE_MODE = 'CONSOLE_MODE: PRIVILEGED';
+const TEXT_NAVIGATE = '↑↓ NAVIGATE';
+const TEXT_ENTER_EXECUTE = 'ENTER EXECUTE';
+const TEXT_NAV_COMMANDS_SUFFIX = ' COMMANDS';
 
 interface CommandItem {
   command: string;
   description: string;
   category: 'Navigation' | 'System' | 'Utilities';
   action: () => void;
+}
+
+interface CommandPaletteProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onRunDiagnostics: () => void;
 }
 
 export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onRunDiagnostics }) => {
@@ -140,8 +149,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
         setSelectedIndex(prev => (prev - 1 + filteredCommands.length) % filteredCommands.length);
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (filteredCommands[selectedIndex]) {
-          filteredCommands[selectedIndex].action();
+        const activeCmd = filteredCommands.at(selectedIndex);
+        if (activeCmd) {
+          activeCmd.action();
           onClose();
         }
       } else if (e.key === 'Escape') {
@@ -216,7 +226,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
                 className="flex-1 bg-transparent font-mono text-sm text-white placeholder-slate-600 outline-none border-none"
               />
               <span className="font-mono text-[9px] text-slate-500 bg-slate-950 border border-slate-800/50 px-2 py-1 rounded">
-                ESC TO EXIT
+                {TEXT_ESC_TO_EXIT}
               </span>
             </div>
 
@@ -231,7 +241,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
                   return (
                     <div key={cat} className="space-y-1.5">
                       <h4 className="font-mono text-[9px] font-bold text-slate-600 tracking-widest uppercase px-3">
-                        {cat} COMMANDS
+                        {cat}{TEXT_NAV_COMMANDS_SUFFIX}
                       </h4>
                       <div className="space-y-1">
                         {catCommands.map(item => {
@@ -267,7 +277,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
                               <div className="flex items-center gap-1.5">
                                 {isActive ? (
                                   <span className="flex items-center gap-1 text-[9px] text-cyan-500/80 bg-cyan-950/50 border border-cyan-500/20 px-1.5 py-0.5 rounded">
-                                    EXECUTE
+                                    {TEXT_EXECUTE}
                                     <CornerDownLeft className="w-2.5 h-2.5" />
                                   </span>
                                 ) : (
@@ -284,8 +294,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
               ) : (
                 <div className="py-8 text-center text-slate-500 space-y-2">
                   <HelpCircle className="w-8 h-8 text-slate-700 mx-auto" />
-                  <p className="font-mono text-xs">NO COMMANDS MATCHED YOUR SEARCH</p>
-                  <p className="text-[10px] text-slate-600">Try searching for keywords like "/goto" or "/theme"</p>
+                  <p className="font-mono text-xs">{TEXT_NO_COMMANDS}</p>
+                  <p className="text-[10px] text-slate-600">{TEXT_TRY_SEARCHING}</p>
                 </div>
               )}
             </div>
@@ -294,16 +304,16 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
             <div className="px-5 py-2.5 border-t border-slate-800/60 bg-slate-950/50 font-mono text-[9px] text-slate-500 flex justify-between items-center">
               <span className="flex items-center gap-1">
                 <Shield className="w-3 h-3 text-cyan-500/60" />
-                CONSOLE_MODE: PRIVILEGED
+                {TEXT_CONSOLE_MODE}
               </span>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
                   <ArrowRight className="w-2.5 h-2.5" />
-                  ↑↓ NAVIGATE
+                  {TEXT_NAVIGATE}
                 </span>
                 <span className="flex items-center gap-1">
                   <ArrowRight className="w-2.5 h-2.5" />
-                  ENTER EXECUTE
+                  {TEXT_ENTER_EXECUTE}
                 </span>
               </div>
             </div>

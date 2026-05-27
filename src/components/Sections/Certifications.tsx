@@ -4,6 +4,13 @@ import { motion } from 'framer-motion';
 import { certifications } from '../../utils/data';
 import { DecryptionModal } from './DecryptionModal';
 
+const TEXT_SECTION_TAG = 'Verified Credentials';
+const TEXT_CREDENTIALS_DB = 'CREDENTIALS_DB';
+const TEXT_SUBTITLE = 'Verified encrypted academic & professional credentials';
+const TEXT_HASH_LABEL = 'HASH: ';
+const TEXT_ISSUED_LABEL = 'ISSUED: ';
+const TEXT_VIEW_BTN = 'VIEW';
+
 const getLevelConfig = (level: string) => {
     const lvl = level.toLowerCase();
     if (lvl === 'professional' || lvl === 'advanced') {
@@ -52,7 +59,7 @@ const Certifications: React.FC = () => {
             <div className="text-center space-y-3">
                 <div className="section-tag">
                     <Award className="w-3 h-3" />
-                    Verified Credentials
+                    {TEXT_SECTION_TAG}
                 </div>
                 <h2
                     className="text-4xl sm:text-5xl font-cyber font-black tracking-widest"
@@ -63,10 +70,10 @@ const Certifications: React.FC = () => {
                         backgroundClip: 'text',
                     }}
                 >
-                    CREDENTIALS_DB
+                    {TEXT_CREDENTIALS_DB}
                 </h2>
                 <p className="font-mono text-[11px] text-slate-500 tracking-widest uppercase">
-                    Verified encrypted academic & professional credentials
+                    {TEXT_SUBTITLE}
                 </p>
             </div>
 
@@ -108,7 +115,7 @@ const Certifications: React.FC = () => {
                                 {/* Card header */}
                                 <div className="flex justify-between items-center pb-3.5 mb-4 border-b border-slate-800/50 font-mono text-[9px] text-slate-600">
                                     <span className="flex items-center gap-1.5">
-                                        HASH: {hashKey}
+                                        {TEXT_HASH_LABEL}{hashKey}
                                         <span className={cert.level.toLowerCase() === 'professional' || cert.level.toLowerCase() === 'advanced' ? 'led-purple' : cert.level.toLowerCase() === 'simulation' || cert.level.toLowerCase() === 'workshop' ? 'led-green' : 'led-cyan'} />
                                     </span>
                                     <span className="px-2 py-0.5 rounded-md text-[8px] font-bold uppercase"
@@ -135,7 +142,7 @@ const Certifications: React.FC = () => {
                                 <div className="pt-4 mt-auto border-t border-slate-800/50 flex items-center justify-between">
                                     <span className="font-mono text-[9px] text-slate-600 flex items-center gap-1.5">
                                         <span className="w-1 h-1 rounded-full" style={{ background: config.iconColor }} />
-                                        ISSUED: {cert.issued}
+                                        {TEXT_ISSUED_LABEL}{cert.issued}
                                     </span>
                                     <button
                                         onClick={(e) => {
@@ -160,7 +167,7 @@ const Certifications: React.FC = () => {
                                         }}
                                     >
                                         <Download className="w-3 h-3" />
-                                        VIEW
+                                        {TEXT_VIEW_BTN}
                                     </button>
                                 </div>
                             </div>

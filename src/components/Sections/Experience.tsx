@@ -3,6 +3,12 @@ import { ChevronRight, Activity, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { experience } from '../../utils/data';
 
+const TEXT_WORK_HISTORY = 'Work History';
+const TEXT_SECURITY_LOGS = 'SECURITY_LOGS';
+const TEXT_SUBTITLE = 'Historical records of penetration & security compliance operations';
+const TEXT_RECORD_PREFIX = 'RECORD_ID_#';
+const TEXT_RECORD_SUFFIX = ' // LEVEL_SECURE';
+
 const Experience: React.FC = () => {
     return (
         <motion.div
@@ -15,7 +21,7 @@ const Experience: React.FC = () => {
             <div className="text-center space-y-3">
                 <div className="section-tag">
                     <Briefcase className="w-3 h-3" />
-                    Work History
+                    {TEXT_WORK_HISTORY}
                 </div>
                 <h2
                     className="text-4xl sm:text-5xl font-cyber font-black tracking-widest"
@@ -26,10 +32,10 @@ const Experience: React.FC = () => {
                         backgroundClip: 'text',
                     }}
                 >
-                    SECURITY_LOGS
+                    {TEXT_SECURITY_LOGS}
                 </h2>
                 <p className="font-mono text-[11px] text-slate-500 tracking-widest uppercase">
-                    Historical records of penetration & security compliance operations
+                    {TEXT_SUBTITLE}
                 </p>
             </div>
 
@@ -88,7 +94,7 @@ const Experience: React.FC = () => {
                             <div className="p-6 md:p-8">
                                 {/* Card header */}
                                 <div className="flex flex-wrap justify-between items-center gap-3 pb-5 mb-6 border-b border-slate-800/50 font-mono text-[9px] text-slate-600">
-                                    <span>RECORD_ID_#{100 - idx} // LEVEL_SECURE</span>
+                                    <span>{TEXT_RECORD_PREFIX}{100 - idx}{TEXT_RECORD_SUFFIX}</span>
                                     <div className="flex flex-wrap gap-2">
                                         <span className="px-2.5 py-1 rounded-md text-cyan-400 font-semibold"
                                             style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)' }}>

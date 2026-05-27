@@ -3,6 +3,12 @@ import { motion } from 'framer-motion';
 import { Shield, ExternalLink, FolderOpen, ChevronRight } from 'lucide-react';
 import { projects } from '../../utils/data';
 
+const TEXT_SECTION_TAG = 'Security Projects';
+const TEXT_PROJECTS = 'PROJECTS';
+const TEXT_SUBTITLE = 'Comprehensive penetration logs & auditing archives';
+const TEXT_REF_PREFIX = 'REF: ';
+const TEXT_THREAT_LEVEL = 'THREAT_LEVEL: ';
+
 const statusConfigs = [
     { label: 'COMPLETED // SIGNED_OFF', color: '#34d399', bg: 'rgba(16,185,129,0.08)', border: 'rgba(16,185,129,0.25)' },
     { label: 'ACTIVE_PLAYROOM', color: '#22d3ee', bg: 'rgba(6,182,212,0.08)', border: 'rgba(6,182,212,0.25)' },
@@ -27,7 +33,7 @@ const Projects: React.FC = () => {
             <div className="text-center space-y-3">
                 <div className="section-tag">
                     <FolderOpen className="w-3 h-3" />
-                    Security Projects
+                    {TEXT_SECTION_TAG}
                 </div>
                 <h2
                     className="text-4xl sm:text-5xl font-cyber font-black tracking-widest"
@@ -38,10 +44,10 @@ const Projects: React.FC = () => {
                         backgroundClip: 'text',
                     }}
                 >
-                    PROJECTS
+                    {TEXT_PROJECTS}
                 </h2>
                 <p className="font-mono text-[11px] text-slate-500 tracking-widest uppercase">
-                    Comprehensive penetration logs & auditing archives
+                    {TEXT_SUBTITLE}
                 </p>
             </div>
 
@@ -49,8 +55,8 @@ const Projects: React.FC = () => {
             <div className="space-y-6">
                 {projects.map((project, idx) => {
                     const Icon = project.icon || Shield;
-                    const status = statusConfigs[idx] || statusConfigs[0];
-                    const threat = threatConfigs[idx] || threatConfigs[2];
+                    const status = statusConfigs.at(idx) || statusConfigs[0];
+                    const threat = threatConfigs.at(idx) || threatConfigs[2];
                     const reportHash = `REP-2025-${idx * 217 + 104}`;
 
                     return (
@@ -91,10 +97,10 @@ const Projects: React.FC = () => {
                             <div className="p-6 sm:p-8">
                                 {/* Dossier header */}
                                 <div className="flex flex-wrap justify-between items-center pb-4 mb-6 border-b border-slate-800/50 font-mono text-[9px] sm:text-[10px] text-slate-600 gap-2">
-                                    <span>REF: {reportHash}</span>
+                                    <span>{TEXT_REF_PREFIX}{reportHash}</span>
                                     <div className="flex items-center gap-4 flex-wrap">
                                         <span className="flex items-center gap-1.5">
-                                            THREAT_LEVEL: 
+                                            {TEXT_THREAT_LEVEL}
                                             <span className="flex gap-0.5">
                                                 {Array.from({ length: 5 }).map((_, i) => (
                                                     <span 

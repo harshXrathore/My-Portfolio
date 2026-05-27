@@ -3,6 +3,11 @@ import { Shield, Menu, X, Zap, Search, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
 
+const TEXT_LOGO_NAME = 'HARSH.R';
+const TEXT_STATUS_TAG = 'SEC_OPS // ONLINE';
+const TEXT_CEH_VERSION = 'CEH v13';
+const TEXT_LATENCY = '12ms';
+
 interface NavbarProps {
     activeTab: string;
     setActiveTab: (tab: string) => void;
@@ -70,11 +75,11 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenPalette 
                         </div>
                         <div className="flex flex-col leading-none">
                             <span className="font-cyber font-black text-sm tracking-widest text-white group-hover:text-cyan-400 transition-colors">
-                                HARSH.R
+                                {TEXT_LOGO_NAME}
                             </span>
                             <span className="font-mono text-[9px] text-cyan-500/70 tracking-wider flex items-center gap-1 mt-0.5">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
-                                SEC_OPS // ONLINE
+                                {TEXT_STATUS_TAG}
                             </span>
                         </div>
                     </button>
@@ -145,9 +150,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, onOpenPalette 
                         {/* Right Telemetry Signal */}
                         <div className="hidden lg:flex items-center gap-2 font-mono text-[9px] text-slate-500">
                             <Zap className="w-3 h-3 text-cyan-500/70" />
-                            <span className="text-emerald-400/80">12ms</span>
+                            <span className="text-emerald-400/80">{TEXT_LATENCY}</span>
                             <span className="text-slate-600">|</span>
-                            <span>CEH v13</span>
+                            <span>{TEXT_CEH_VERSION}</span>
                         </div>
                     </div>
 

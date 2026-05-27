@@ -23,6 +23,7 @@ const TEXT = {
     bioDetails4: ', script automation with ',
     bioDetails5: ', and endpoint analysis.',
     modulePrefix: 'MODULE_0',
+    diagnosticGauges: 'DIAGNOSTIC_GAUGES',
 };
 
 const specialties = [
@@ -114,7 +115,7 @@ const About: React.FC = () => {
                         >
                             <div className="flex items-center gap-2 pb-2 border-b border-slate-800/60 font-mono text-[9px] text-slate-500">
                                 <div className="led-cyan inline-block" />
-                                <span className="uppercase tracking-widest">DIAGNOSTIC_GAUGES</span>
+                                <span className="uppercase tracking-widest">{TEXT.diagnosticGauges}</span>
                             </div>
                             <div className="grid grid-cols-3 gap-2">
                                 {[
