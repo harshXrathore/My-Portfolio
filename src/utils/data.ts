@@ -21,6 +21,16 @@ export const certifications = [
 
 export const experience = [
     {
+      role: 'AI Model Trainer And Evaluator',
+      company: 'Deccan AI Experts',
+      period: 'May 2026 – Present',
+      type: 'Freelance',
+      points: [
+        'Successfully completed the Training & Evaluation phase of the Deccan AI Expert Program.',
+        'Worked on AI-focused tasks involving analytical thinking, prompt understanding, response evaluation, and quality assessment.'
+      ]
+    },
+    {
       role: 'Cybersecurity Intern',
       company: 'Hacktify Cyber Security',
       period: 'February 2025 – March 2025',

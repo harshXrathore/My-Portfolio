@@ -34,7 +34,7 @@ const specialties = [
 const metadata = [
     { label: 'Subject', value: 'HARSH RATHORE', color: 'text-cyan-400' },
     { label: 'Cognizance', value: 'CYBER_SECURITY', color: 'text-white' },
-    { label: 'Credential', value: 'CEH_v13 // PRO', color: 'text-rose-400' },
+    { label: 'Credential', value: 'CEH_v13', color: 'text-rose-400' },
     { label: 'Institution', value: 'Parul University', color: 'text-white' },
     { label: 'Station', value: 'Vadodara, IND', color: 'text-slate-300' },
     { label: 'Integrity', value: 'SECURED ✓', color: 'text-emerald-400' },
@@ -87,6 +87,7 @@ const About: React.FC = () => {
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[100px] pointer-events-none" style={{ background: 'rgba(168,85,247,0.03)' }} />
 
                 <div className="p-8 md:p-10 grid lg:grid-cols-12 gap-8 items-start">
+
 
                     {/* Metadata sidebar */}
                     <div className="lg:col-span-4 space-y-4">
