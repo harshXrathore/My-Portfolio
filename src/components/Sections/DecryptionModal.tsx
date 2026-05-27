@@ -2,6 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, Terminal, X, Lock, CheckCircle } from 'lucide-react';
 
+const TEXT_SEC_DECRYPT = 'SEC_DECRYPT // SYMMETRIC_DECRYPTOR';
+const TEXT_DECRYPTED_ARCHIVE = 'DECRYPTED_ARCHIVE // VERIFIED';
+const TEXT_DECRYPTING_CREDENTIAL = 'DECRYPTING_CREDENTIAL...';
+const TEXT_TARGET = 'TARGET: ';
+const TEXT_DECRYPTING_BLOCKS = '⌛ Decrypting blocks...';
+const TEXT_DECRYPT_RATIO = 'DECRYPT_RATIO: ';
+const TEXT_KEY = 'KEY: AES_GCM_256';
+const TEXT_CREDENTIAL_RECORD_DECRYPTED = 'CREDENTIAL_RECORD_DECRYPTED';
+const TEXT_CREDENTIAL_NAME = 'CREDENTIAL NAME';
+const TEXT_ISSUER = 'ISSUER';
+const TEXT_DATE_ISSUED = 'DATE ISSUED';
+const TEXT_VERIFIED_SHA_CORRELATION = 'VERIFIED SHA256 CORRELATION';
+const TEXT_SHA_PREFIX = 'SHA256[0x';
+const TEXT_SHA_SUFFIX = '_COMPLIANT_SSL]';
+const TEXT_DOWNLOAD_CERTIFICATE = 'DOWNLOAD CERTIFICATE';
+const TEXT_CLOSE = 'CLOSE';
+
 interface DecryptionModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -92,7 +109,7 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
             <div className="flex items-center gap-2">
               <Terminal className={`w-4 h-4 ${stage === 'decrypting' ? 'text-purple-400 animate-pulse' : 'text-cyan-400'}`} />
               <span className="text-slate-400 tracking-wider">
-                {stage === 'decrypting' ? 'SEC_DECRYPT // SYMMETRIC_DECRYPTOR' : 'DECRYPTED_ARCHIVE // VERIFIED'}
+                {stage === 'decrypting' ? TEXT_SEC_DECRYPT : TEXT_DECRYPTED_ARCHIVE}
               </span>
             </div>
             <button 
@@ -121,10 +138,10 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-white tracking-widest uppercase">
-                        DECRYPTING_CREDENTIAL...
+                        {TEXT_DECRYPTING_CREDENTIAL}
                       </h4>
                       <p className="text-[9px] text-slate-500 mt-1 uppercase">
-                        TARGET: {certName.replace(/ /g, '_')}
+                        {TEXT_TARGET}{certName.replace(/ /g, '_')}
                       </p>
                     </div>
                   </div>
@@ -138,7 +155,7 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                     ))}
                     {decryptionLogs.length < decryptionSteps.length && (
                       <div className="text-purple-500 animate-pulse flex items-center gap-1">
-                        <span>⌛ Decrypting blocks...</span>
+                        <span>{TEXT_DECRYPTING_BLOCKS}</span>
                         <span className="w-1 h-3 bg-purple-500 inline-block align-middle" />
                       </div>
                     )}
@@ -147,8 +164,8 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                   {/* Progress ratio indicator */}
                   <div className="space-y-2">
                     <div className="flex justify-between text-[9px] text-slate-500 uppercase tracking-widest">
-                      <span>DECRYPT_RATIO: {progress}%</span>
-                      <span>KEY: AES_GCM_256</span>
+                      <span>{TEXT_DECRYPT_RATIO}{progress}%</span>
+                      <span>{TEXT_KEY}</span>
                     </div>
                     <div className="h-1.5 w-full rounded-full bg-slate-950 overflow-hidden border border-slate-900">
                       <div 
@@ -169,7 +186,7 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                   <div className="flex items-center gap-3">
                     <CheckCircle className="w-6 h-6 text-emerald-400" />
                     <h4 className="text-sm font-bold text-white tracking-widest uppercase">
-                      CREDENTIAL_RECORD_DECRYPTED
+                      {TEXT_CREDENTIAL_RECORD_DECRYPTED}
                     </h4>
                   </div>
 
@@ -187,7 +204,7 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                     <div className="space-y-4 relative z-10">
                       <div className="flex justify-between items-start">
                         <div>
-                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">CREDENTIAL NAME</span>
+                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">{TEXT_CREDENTIAL_NAME}</span>
                           <h3 className="font-cyber font-black text-base text-white tracking-wide mt-1 leading-tight">
                             {certName}
                           </h3>
@@ -199,19 +216,19 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
 
                       <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-800/40">
                         <div>
-                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">ISSUER</span>
+                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">{TEXT_ISSUER}</span>
                           <p className="text-[11px] text-slate-300 font-bold mt-0.5">{certOrg}</p>
                         </div>
                         <div>
-                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">DATE ISSUED</span>
+                          <span className="text-[8px] text-slate-500 uppercase tracking-widest">{TEXT_DATE_ISSUED}</span>
                           <p className="text-[11px] text-slate-300 font-bold mt-0.5">{certDate}</p>
                         </div>
                       </div>
 
                       <div className="pt-2 border-t border-slate-800/40">
-                        <span className="text-[8px] text-slate-500 uppercase tracking-widest">VERIFIED SHA256 CORRELATION</span>
+                        <span className="text-[8px] text-slate-500 uppercase tracking-widest">{TEXT_VERIFIED_SHA_CORRELATION}</span>
                         <p className="text-[9px] text-slate-500 font-mono break-all mt-0.5">
-                          SHA256[0x{((certName.length + 12) * 5191).toString(16).toUpperCase()}_COMPLIANT_SSL]
+                          {TEXT_SHA_PREFIX}{((certName.length + 12) * 5191).toString(16).toUpperCase()}{TEXT_SHA_SUFFIX}
                         </p>
                       </div>
                     </div>
@@ -229,13 +246,13 @@ export const DecryptionModal: React.FC<DecryptionModalProps> = ({
                       }}
                     >
                       <Download className="w-4 h-4" />
-                      DOWNLOAD CERTIFICATE
+                      {TEXT_DOWNLOAD_CERTIFICATE}
                     </a>
                     <button
                       onClick={onClose}
                       className="px-4 py-3 rounded-xl border border-slate-800 text-slate-400 hover:text-white hover:bg-white/4 font-mono text-xs transition-all"
                     >
-                      CLOSE
+                      {TEXT_CLOSE}
                     </button>
                   </div>
                 </motion.div>

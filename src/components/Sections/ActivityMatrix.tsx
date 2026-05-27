@@ -2,6 +2,20 @@ import React, { useMemo } from 'react';
 import { Tooltip } from 'antd';
 import { Activity } from 'lucide-react';
 
+const TEXT_SECURITY_INTEGRITY_LOGS_MATRIX = 'SECURITY_INTEGRITY_LOGS_MATRIX';
+const TEXT_STANDBY = 'STANDBY';
+const TEXT_SCAN_NOMINAL = 'SCAN_NOMINAL';
+const TEXT_PATCHED_VULN = 'PATCHED_VULN';
+const TEXT_THREAT_BLOCKED = 'THREAT_BLOCKED';
+const TEXT_SUN = 'SUN';
+const TEXT_TUE = 'TUE';
+const TEXT_THU = 'THU';
+const TEXT_SAT = 'SAT';
+const TEXT_THREAT_NEUTRALIZED = 'THREAT_NEUTRALIZED';
+const TEXT_SYSTEM_PATCHED = 'SYSTEM_PATCHED';
+const TEXT_NOMINAL_COMPLIANT = 'NOMINAL_COMPLIANT';
+const TEXT_ATTACK_SOURCE = 'ATTACK_SOURCE: ';
+
 interface LogCell {
   state: 0 | 1 | 2 | 3; // 0: standby, 1: nominal test, 2: patched vuln, 3: threat blocked
   date: string;
@@ -53,7 +67,8 @@ export const ActivityMatrix: React.FC = () => {
         let cellIp = undefined;
         
         if (stateVal > 0) {
-          const logTemplate = mockLogs[(r * 5 + c * 3) % mockLogs.length];
+          const logIndex = (r * 5 + c * 3) % mockLogs.length;
+          const logTemplate = mockLogs.at(logIndex)!;
           cellLog = logTemplate.log;
           cellIp = logTemplate.ip;
         }
@@ -91,7 +106,7 @@ export const ActivityMatrix: React.FC = () => {
         <div className="flex items-center gap-2">
           <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
           <h4 className="font-cyber font-bold text-xs text-white tracking-widest uppercase">
-            SECURITY_INTEGRITY_LOGS_MATRIX
+            {TEXT_SECURITY_INTEGRITY_LOGS_MATRIX}
           </h4>
         </div>
         
@@ -99,19 +114,19 @@ export const ActivityMatrix: React.FC = () => {
         <div className="flex flex-wrap items-center gap-4 font-mono text-[9px] text-slate-500">
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded bg-slate-900 border border-slate-950" />
-            STANDBY
+            {TEXT_STANDBY}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded bg-cyan-500/50 border border-cyan-400/20 shadow-[0_0_5px_#06b6d4]" />
-            SCAN_NOMINAL
+            {TEXT_SCAN_NOMINAL}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded bg-purple-500/70 border border-purple-400/20 shadow-[0_0_6px_#a855f7]" />
-            PATCHED_VULN
+            {TEXT_PATCHED_VULN}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded bg-rose-500/80 border border-rose-400/20 shadow-[0_0_8px_#f43f5e]" />
-            THREAT_BLOCKED
+            {TEXT_THREAT_BLOCKED}
           </span>
         </div>
       </div>
@@ -127,10 +142,10 @@ export const ActivityMatrix: React.FC = () => {
         <div className="flex gap-2 min-w-[550px] justify-between">
           {/* Days side labels */}
           <div className="flex flex-col justify-between font-mono text-[9px] text-slate-600 select-none pb-0.5">
-            <span>SUN</span>
-            <span>TUE</span>
-            <span>THU</span>
-            <span>SAT</span>
+            <span>{TEXT_SUN}</span>
+            <span>{TEXT_TUE}</span>
+            <span>{TEXT_THU}</span>
+            <span>{TEXT_SAT}</span>
           </div>
 
           {/* Matrix Columns */}
@@ -138,7 +153,8 @@ export const ActivityMatrix: React.FC = () => {
             {Array.from({ length: 24 }).map((_, colIdx) => (
               <div key={colIdx} className="flex flex-col gap-1.5">
                 {Array.from({ length: 7 }).map((_, rowIdx) => {
-                  const cell = matrixData[rowIdx][colIdx];
+                  const row = matrixData.at(rowIdx)!;
+                  const cell = row.at(colIdx)!;
                   const stateClass = getCellColor(cell.state);
 
                   // Tooltip custom details
@@ -151,15 +167,15 @@ export const ActivityMatrix: React.FC = () => {
                           cell.state === 2 ? 'text-purple-400 bg-purple-950/30' :
                           cell.state === 1 ? 'text-cyan-400 bg-cyan-950/30' : 'text-slate-500 bg-slate-950'
                         }`}>
-                          {cell.state === 3 ? 'THREAT_NEUTRALIZED' :
-                           cell.state === 2 ? 'SYSTEM_PATCHED' :
-                           cell.state === 1 ? 'NOMINAL_COMPLIANT' : 'STANDBY'}
+                          {cell.state === 3 ? TEXT_THREAT_NEUTRALIZED :
+                           cell.state === 2 ? TEXT_SYSTEM_PATCHED :
+                           cell.state === 1 ? TEXT_NOMINAL_COMPLIANT : TEXT_STANDBY}
                         </span>
                       </div>
                       <p className="text-slate-200 text-xs">{cell.log}</p>
                       {cell.ip && (
                         <div className="text-[9px] text-cyan-500/80">
-                          ATTACK_SOURCE: <span className="underline">{cell.ip}</span>
+                          {TEXT_ATTACK_SOURCE}<span className="underline">{cell.ip}</span>
                         </div>
                       )}
                     </div>
