@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { experience } from '../../utils/data';
 
 const TEXT_WORK_HISTORY = 'Work History';
-const TEXT_SECURITY_LOGS = 'SECURITY_LOGS';
+const TEXT_SECURITY_LOGS = 'Experience';
 const TEXT_SUBTITLE = 'Historical records of penetration & security compliance operations';
 const TEXT_RECORD_PREFIX = 'RECORD_ID_#';
 const TEXT_RECORD_SUFFIX = ' // LEVEL_SECURE';
