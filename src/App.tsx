@@ -9,6 +9,7 @@ import Skills from './components/Sections/Skills';
 import Experience from './components/Sections/Experience';
 import Certifications from './components/Sections/Certifications';
 import Projects from './components/Sections/Projects';
+import Achievement from './components/Sections/Achievement';
 import Contact from './components/Sections/Contact';
 import { LoadingScreen } from './components/Layout/LoadingScreen';
 import { CursorGlow } from './components/Layout/CursorGlow';
@@ -25,7 +26,7 @@ function CyberSecurityPortfolio() {
   useEffect(() => {
     if (isLoading) return;
 
-    const sections = ['home', 'about', 'skills', 'experience', 'certifications', 'projects', 'contact'];
+    const sections = ['home', 'about', 'skills', 'experience', 'certifications', 'projects', 'achievements', 'contact'];
     
     const observerOptions = {
       root: null,
@@ -152,6 +153,17 @@ function CyberSecurityPortfolio() {
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 >
                   <Projects />
+                </motion.section>
+
+                <motion.section
+                  id="achievements"
+                  className="scroll-mt-36"
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                >
+                  <Achievement />
                 </motion.section>
 
                 <motion.section

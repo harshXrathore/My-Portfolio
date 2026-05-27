@@ -62,6 +62,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
       action: () => scrollToSection('projects')
     },
     {
+      command: '/goto achievements',
+      description: 'Scroll to achievements and bootcamp history',
+      category: 'Navigation',
+      action: () => scrollToSection('achievements')
+    },
+    {
       command: '/goto contact',
       description: 'Scroll to email communication channel',
       category: 'Navigation',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, ExternalLink, FolderOpen } from 'lucide-react';
+import { Shield, ExternalLink, FolderOpen, ChevronRight } from 'lucide-react';
 import { projects } from '../../utils/data';
 
 const statusConfigs = [
@@ -38,7 +38,7 @@ const Projects: React.FC = () => {
                         backgroundClip: 'text',
                     }}
                 >
-                    DIAGNOSTIC_REPORTS
+                    PROJECTS
                 </h2>
                 <p className="font-mono text-[11px] text-slate-500 tracking-widest uppercase">
                     Comprehensive penetration logs & auditing archives
@@ -59,10 +59,17 @@ const Projects: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.12 }}
-                            className="group relative rounded-2xl overflow-hidden transition-all duration-300 card-border-gradient"
+                            className={`group relative rounded-2xl overflow-hidden transition-all duration-300 card-border-gradient ${
+                                project.github ? 'cursor-pointer' : ''
+                            }`}
                             style={{
                                 background: 'rgba(4,7,18,0.75)',
                                 backdropFilter: 'blur(16px)',
+                            }}
+                            onClick={() => {
+                                if (project.github) {
+                                    window.open(project.github, '_blank', 'noopener,noreferrer');
+                                }
                             }}
                             onMouseEnter={e => {
                                 (e.currentTarget as HTMLElement).style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.5), 0 0 30px rgba(6,182,212,0.07)';
@@ -128,10 +135,30 @@ const Projects: React.FC = () => {
                                             <h3 className="text-2xl font-cyber font-bold text-white group-hover:text-cyan-400 transition-colors mb-2">
                                                 {project.title}
                                             </h3>
-                                            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+                                            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans mb-4">
                                                 {project.description}
                                             </p>
                                         </div>
+
+                                        {/* Points if available */}
+                                        {project.points && (
+                                            <div className="space-y-3 select-text text-left pb-2">
+                                                {project.points.map((point, i) => (
+                                                    <div
+                                                        key={i}
+                                                        className="flex items-start gap-3 group/item"
+                                                    >
+                                                        <div className="mt-1.5 flex-shrink-0 p-0.5 rounded transition-colors animate-pulse"
+                                                            style={{ background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.2)' }}>
+                                                            <ChevronRight className="w-3 h-3 text-cyan-400" />
+                                                        </div>
+                                                        <span className="text-slate-300 text-sm md:text-base leading-relaxed font-sans group-hover/item:text-slate-200 transition-colors">
+                                                            {point}
+                                                        </span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
 
                                         {/* Tech tags */}
                                         <div className="flex flex-wrap gap-2 pt-1">

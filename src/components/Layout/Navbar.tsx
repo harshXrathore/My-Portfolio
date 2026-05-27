@@ -16,6 +16,7 @@ const navItems = [
     { id: 'experience', label: 'Experience' },
     { id: 'certifications', label: 'Certs' },
     { id: 'projects', label: 'Projects' },
+    { id: 'achievements', label: 'Achievement' },
     { id: 'contact', label: 'Contact' },
 ];
 
