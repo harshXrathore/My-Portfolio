@@ -16,16 +16,12 @@ import { CursorGlow } from './components/Layout/CursorGlow';
 import { CommandPalette } from './components/Layout/CommandPalette';
 import { ThemeProvider } from './context/ThemeContext';
 
-function CyberSecurityPortfolio() {
-  const [activeTab, setActiveTab] = useState('home');
-  const [isLoading, setIsLoading] = useState(true);
-  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
-  const { scrollYProgress } = useScroll();
+interface ScrollSpyProps {
+  setActiveTab: (tab: string) => void;
+}
 
-  // Scroll spy to update Navbar active indicator
+const ScrollSpy: React.FC<ScrollSpyProps> = ({ setActiveTab }) => {
   useEffect(() => {
-    if (isLoading) return;
-
     const sections = ['home', 'about', 'skills', 'experience', 'certifications', 'projects', 'achievements', 'contact'];
     
     const observerOptions = {
@@ -49,7 +45,16 @@ function CyberSecurityPortfolio() {
     });
 
     return () => observer.disconnect();
-  }, [isLoading]);
+  }, [setActiveTab]);
+
+  return null;
+};
+
+function CyberSecurityPortfolio() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
 
   // Handle diagnostic trigger from Command Palette
   const triggerDiagnostics = () => {
@@ -69,6 +74,9 @@ function CyberSecurityPortfolio() {
             transition={{ duration: 0.5 }}
             className="relative"
           >
+            {/* Scroll Spy to update Navbar active indicator */}
+            <ScrollSpy setActiveTab={setActiveTab} />
+
             {/* Background elements */}
             <Background />
 
